@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: sumcumo/hairpin-proxy-controller
+  pullPolicy: IfNotPresent
+  tag: "0.4.0"
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+serviceAccount:
+  annotations: {}
+
+resources:
+  requests:
+    memory: "50Mi"
+    cpu: "10m"
+  limits:
+    memory: "100Mi"
+    cpu: "50m"
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+daemonset:
+  enabled: false
+  resources: {}
+
+
+serviceAccount:
+  name: hairpin-proxy

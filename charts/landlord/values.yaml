@@ -1,0 +1,12 @@
+platform:
+  gitops:
+    namespace: flux-system
+    repositoryUrl: ssh://git@github.com/kube-core/dev.git
+    repositoryRef: main
+    repositorySecretRef: flux-ssh
+tenants:
+  kube-core:
+    enabled: true
+    environments:
+      dev:
+        enabled: true

@@ -1,0 +1,60 @@
+{{- define "app-extensions.app-strategies" }}
+{{- $baseValues := .baseValues }}
+{{ $values := . }}
+{{ if .value.config.blueGreenMode.enabled }}
+{{ $blueGreen := deepCopy $values }}
+{{ $ingress := index $blueGreen.value.components "app-ingress" }}
+{{ if $ingress }}
+{{ $_ := set $ingress "type" "blueGreen" }}
+{{ end }}
+
+{{ if .value.config.blueGreenMode.blue.enabled }}
+{{ $blue := deepCopy $blueGreen }}
+{{ $_ := set $blue "value" (mergeOverwrite $blue.value $values.value.config.blueGreenMode.blue.config) }}
+{{ $_ := set $blue.value "name" (printf "%s-blue" $blue.value.name) }}
+{{ $blueIngress := index $blue.value.components "app-ingress" }}
+{{ if $blueIngress }}
+{{ $_ := set $blueIngress "host" (printf "blue.%s" $blueIngress.host) }}
+{{ end }}
+{{ include "app-extensions.app-components" $blue }}
+{{ end }}
+
+{{ if .value.config.blueGreenMode.green.enabled }}
+{{ $green := deepCopy $blueGreen }}
+{{ $_ := set $green "value" (mergeOverwrite $green.value $values.value.config.blueGreenMode.green.config) }}
+{{ $_ := set $green.value "name" (printf "%s-green" $green.value.name) }}
+{{ $greenIngress := index $green.value.components "app-ingress" }}
+{{ if $greenIngress }}
+{{ $_ := set $greenIngress "host" (printf "green.%s" $greenIngress.host) }}
+{{ end }}
+{{ include "app-extensions.app-components" $green }}
+{{ end }}
+{{ end }}
+
+{{ if .value.config.maintenanceMode.enabled }}
+{{ $maintenance := deepCopy $values }}
+{{ $_ := set $maintenance "value" (mergeOverwrite $maintenance.value $values.value.config.maintenanceMode.config) }}
+{{ $_ := set $maintenance.value "name" (printf "%s-maintenance" $maintenance.value.name) }}
+{{ $maintenanceIngress := index $maintenance.value.components "app-ingress" }}
+{{ if $maintenanceIngress }}
+{{ $_ := set $maintenanceIngress "host" (printf "maintenance.%s" $maintenanceIngress.host) }}
+{{ $_ := set $maintenanceIngress "type" "maintenance" }}
+{{ end }}
+{{ include "app-extensions.app-components" $maintenance }}
+
+{{ $preview := deepCopy $values }}
+{{ $_ := set $preview "value" (mergeOverwrite $preview.value $values.value.config.maintenanceMode.config) }}
+{{ $_ := set $preview.value "name" (printf "%s-preview" $preview.value.name) }}
+{{ $previewIngress := index $preview.value.components "app-ingress" }}
+{{ if $previewIngress }}
+{{ $_ := set $previewIngress "host" (printf "preview.%s" $previewIngress.host) }}
+{{ $_ := set $previewIngress "type" "preview" }}
+{{ $_ := set $previewIngress "serviceName" (.value.name) }}
+{{ end }}
+---
+{{ if $previewIngress }}
+{{- include "app-extensions.include.component" (dict "baseValues" $baseValues "resourceKey" $preview.value.name "resourceConfig" $previewIngress "kindName" "app-ingress" "composition" .value) }}
+{{ end }}
+{{ end }}
+
+{{- end }}

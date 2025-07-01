@@ -1,0 +1,42 @@
+{{- define "app-extensions.app-strategies02" }}
+{{ $values := . }}
+{{ if .value.blueGreenMode.enabled }}
+{{ $blueGreen := deepCopy $values }}
+{{ $_ := set $blueGreen.value.ingress "type" "blueGreen" }}
+
+{{ if .value.blueGreenMode.blue.enabled }}
+{{ $blue := deepCopy $blueGreen }}
+{{ $_ := set $blue "value" (mergeOverwrite $blue.value $values.value.blueGreenMode.blue.config) }}
+{{ $_ := set $blue.value "name" (printf "%s-blue" $blue.value.name) }}
+{{ $_ := set $blue.value.ingress "host" (printf "blue.%s" $blue.value.ingress.host) }}
+{{ include "app-extensions.app-components" $blue }}
+{{ end }}
+
+{{ if .value.blueGreenMode.green.enabled }}
+{{ $green := deepCopy $blueGreen }}
+{{ $_ := set $green "value" (mergeOverwrite $green.value $values.value.blueGreenMode.green.config) }}
+{{ $_ := set $green.value "name" (printf "%s-green" $green.value.name) }}
+{{ $_ := set $green.value.ingress "host" (printf "green.%s" $green.value.ingress.host) }}
+{{ include "app-extensions.app-components" $green }}
+{{ end }}
+{{ end }}
+
+{{ if .value.maintenanceMode.enabled }}
+{{ $maintenance := deepCopy $values }}
+{{ $_ := set $maintenance "value" (mergeOverwrite $maintenance.value $values.value.maintenanceMode.config) }}
+{{ $_ := set $maintenance.value "name" (printf "%s-maintenance" $maintenance.value.name) }}
+{{ $_ := set $maintenance.value.ingress "host" (printf "maintenance.%s" $maintenance.value.ingress.host) }}
+{{ $_ := set $maintenance.value.ingress "type" "maintenance" }}
+{{ include "app-extensions.app-components" $maintenance }}
+
+{{ $preview := deepCopy $values }}
+{{ $_ := set $preview "value" (mergeOverwrite $preview.value $values.value.maintenanceMode.config) }}
+{{ $_ := set $preview.value "name" (printf "%s-preview" $preview.value.name) }}
+{{ $_ := set $preview.value.ingress "host" (printf "preview.%s" $preview.value.ingress.host) }}
+{{ $_ := set $preview.value.ingress "type" "preview" }}
+{{ $_ := set $preview "serviceName" (.value.name) }}
+---
+{{ include "app.ingress" $preview }}
+{{ end }}
+
+{{- end }}

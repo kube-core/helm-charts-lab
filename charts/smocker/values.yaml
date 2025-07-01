@@ -1,0 +1,53 @@
+image:
+  # -- Image name
+  repository: andrcuns/smocker
+  # -- Pull policy
+  pullPolicy: IfNotPresent
+  # -- Image tag
+  tag: ""
+
+# -- Mocks definitions, see: https://smocker.dev/technical-documentation/mock-definition.html
+mocks:
+- request:
+    method: GET
+    path: /
+  response:
+    headers:
+      Content-Type: application/json
+    body: >
+      {
+        "hello": "world"
+      }
+# -- Smocker log level
+logLevel: info
+
+# -- Pod annotations
+podAnnotations: {}
+
+service:
+  # -- Service type
+  type: ClusterIP
+  # -- Service web port
+  webPort: 8080
+  # -- Service admin port
+  adminPort: 8081
+  # -- Service annotations
+  annotations: {}
+
+# -- Resource definitions
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# -- Node selector
+nodeSelector: {}
+
+# -- Tolerations
+tolerations: []
+
+# -- Affinity
+affinity: {}

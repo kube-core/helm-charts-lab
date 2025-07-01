@@ -1,0 +1,56 @@
+{{ if .Values.daemonset.enabled }}
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "hairpin-proxy.fullname" . }}-etchosts
+  labels:
+    {{- include "hairpin-proxy.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "hairpin-proxy.daemonsetLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "hairpin-proxy.daemonsetLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "hairpin-proxy.serviceAccountName" . }}
+      securityContext:
+        runAsUser: 405
+        runAsGroup: 65533
+      containers:
+        - name: hairpin-proxy-etchosts
+          command: ["/app/src/main.rb", "--etc-hosts", "/app/etchosts"]
+          volumeMounts:
+            - name: etchosts
+              mountPath: /app/etchosts
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.daemonset.resources | nindent 12 }}
+      volumes:
+        - name: etchosts
+          hostPath:
+            path: /etc/hosts
+            type: File
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{ end }}

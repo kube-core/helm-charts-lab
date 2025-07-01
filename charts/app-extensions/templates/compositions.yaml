@@ -1,0 +1,12 @@
+{{- include "app-extensions.add-release-metadata-to-values" . }}
+
+{{- $values := .Values }}
+{{- $resourceType := "composition" }}
+{{- $resourceTypePlural := "compositions" }}
+
+{{- include "app-extensions.include.resources" (dict "baseValues" $values "resourceType" $resourceType "resourceTypePlural" $resourceTypePlural) }}
+
+
+{{- range $resourceKey, $resourceConfig := index $values $resourceType }}
+{{- include "app-extensions.include.resource" (dict "baseValues" $values "resourceType" $resourceType "resourceTypePlural" $resourceTypePlural "resourceKey" $resourceKey "resourceConfig" $resourceConfig "kindName" $resourceKey) }}
+{{- end }}

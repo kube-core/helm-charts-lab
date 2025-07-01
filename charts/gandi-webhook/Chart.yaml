@@ -1,0 +1,5 @@
+apiVersion: v2
+appVersion: 0.4.0
+description: A Helm chart for gandi-webhook
+name: gandi-webhook
+version: 0.1.0

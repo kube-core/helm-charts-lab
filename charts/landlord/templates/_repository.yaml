@@ -1,0 +1,29 @@
+{{- define "landlord.repository" -}}
+{{ $name := coalesce .name .tenantName }}
+{{ $tenantName := .tenantName }}
+{{ $namespace := coalesce .namespace .tenantName }}
+{{ $servciceAccountName := coalesce .servciceAccountName $namespace }}
+{{ $defaultPath := printf "/cluster/config/%s" $namespace }}
+{{ $repositoryPath := coalesce .repositoryPath $defaultPath }}
+{{ $repositoryName := coalesce .repositoryName $namespace }}
+{{ $repositoryRef := coalesce .repositoryRef "main" }}
+{{ $defaultRepo := printf "ssh://git@github.com/%s/platform.git" $tenantName }}
+{{ $repositoryUrl := coalesce .repositoryUrl $defaultRepo }}
+{{ $defaultSecretRef := printf "flux-ssh-%s" $repositoryName }}
+{{ $secretRef := coalesce .repositorySecretRef $defaultSecretRef }}
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: {{ $name }}
+  namespace: {{ $namespace }}
+spec:
+  gitImplementation: go-git
+  interval: 1m0s
+  ref:
+    branch: {{ $repositoryRef }}
+  secretRef:
+    name: {{ $secretRef }}
+  timeout: 60s
+  url: {{ $repositoryUrl }}
+{{ end }}

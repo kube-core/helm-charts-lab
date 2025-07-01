@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "hairpin-proxy.fullname" . }}
+  labels:
+    {{- include "hairpin-proxy.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "hairpin-proxy.fullname" . }}
+  labels:
+    {{- include "hairpin-proxy.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+    - extensions
+    - networking.k8s.io
+  resources:
+    - ingresses
+  verbs:
+    - get
+    - list
+    - watch
+- apiGroups: [""]
+  resources:
+    - services
+  verbs:
+    - get
+    - list
+    - watch
+- apiGroups: [""]
+  resources:
+    - configmaps
+  verbs:
+    - get
+    - list
+    - watch
+    - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "hairpin-proxy.fullname" . }}
+  labels:
+    {{- include "hairpin-proxy.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "hairpin-proxy.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "hairpin-proxy.fullname" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "hairpin-proxy.fullname" . }}
+  labels:
+    {{- include "hairpin-proxy.labels" . | nindent 4 }}
+rules:
+- apiGroups: [""]
+  resources:
+    - configmaps
+  verbs:
+    - get
+    - list
+    - watch
+    - update
+- apiGroups: [""]
+  resources:
+    - services
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+- apiGroups: ["apps"]
+  resources:
+    - deployments
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "hairpin-proxy.fullname" . }}
+  labels:
+    {{- include "hairpin-proxy.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "hairpin-proxy.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "hairpin-proxy.fullname" . }}
+    namespace: {{ .Release.Namespace }}

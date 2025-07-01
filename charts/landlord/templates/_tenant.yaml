@@ -1,0 +1,49 @@
+{{- define "landlord.tenant" -}}
+{{ $name := coalesce .name .tenantName }}
+{{ $tenantName := .tenantName }}
+{{ $namespace := coalesce .namespace .tenantName }}
+{{ $servciceAccountName := coalesce .servciceAccountName $namespace }}
+{{ $defaultPath := printf "/cluster/config/%s" $namespace }}
+{{ $repositoryPath := coalesce .repositoryPath $defaultPath }}
+{{ $repositoryName := coalesce .repositoryName $namespace }}
+{{ $repositoryRef := coalesce .repositoryRef "main" }}
+{{ $defaultRepo := printf "ssh://git@github.com/%s/platform.git" $tenantName }}
+{{ $repositoryUrl := coalesce .repositoryUrl $defaultRepo }}
+{{ $defaultSecretRef := printf "flux-ssh-%s" $repositoryName }}
+{{ $secretRef := coalesce .repositorySecretRef $defaultSecretRef }}
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: {{ $namespace }}
+  labels:
+    toolkit.fluxcd.io/tenant: {{ $tenantName }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: {{ $tenantName }}
+  name: {{ $servciceAccountName }}
+  namespace: {{ $namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: {{ $tenantName  }}
+  name: {{ $namespace }}-reconciler
+  namespace: {{ $namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: flux:{{ $tenantName }}:{{ $namespace }}
+- kind: ServiceAccount
+  name: {{ $servciceAccountName }}
+  namespace: {{ $namespace }}
+
+{{ end }}

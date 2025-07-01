@@ -1,0 +1,28 @@
+{{- define "landlord.kustomization" -}}
+{{ $name := coalesce .name .tenantName }}
+{{ $tenantName := .tenantName }}
+{{ $namespace := coalesce .namespace .tenantName }}
+{{ $servciceAccountName := coalesce .servciceAccountName $namespace }}
+{{ $defaultPath := printf "/cluster/config/%s" $namespace }}
+{{ $repositoryPath := coalesce .repositoryPath $defaultPath }}
+{{ $repositoryName := coalesce .repositoryName $namespace }}
+{{ $repositoryRef := coalesce .repositoryRef "main" }}
+{{ $defaultRepo := printf "ssh://git@github.com/%s/platform.git" $tenantName }}
+{{ $repositoryUrl := coalesce .repositoryUrl $defaultRepo }}
+{{ $defaultSecretRef := printf "flux-ssh-%s" $repositoryName }}
+{{ $secretRef := coalesce .repositorySecretRef $defaultSecretRef }}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  namespace: {{ $namespace }}
+  name: {{ $name }}
+spec:
+  force: true
+  interval: 1m0s
+  path: {{ $repositoryPath }}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: {{ $repositoryName }}
+{{ end }}

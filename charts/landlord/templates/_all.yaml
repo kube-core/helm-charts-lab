@@ -1,0 +1,45 @@
+{{ range $tenantName, $tenantConfig := .Values.tenants }}
+{{ if $tenantConfig.enabled }}
+{{ $_ := set $tenantConfig "tenantName" $tenantName }}
+
+{{- /* Tenant Config */ -}}
+{{ include "landlord.tenant" $tenantConfig }}
+{{ include "landlord.repository" $tenantConfig }}
+{{ include "landlord.kustomization" $tenantConfig }}
+
+
+{{- /* Platform Config */ -}}
+{{ $platformConfig :=  $.Values.platform.gitops }}
+{{ $_ := set $platformConfig "tenantName" $tenantName }}
+{{ $_ := set $platformConfig "repositoryPath" (printf "/cluster/config/%s" $tenantName) }}
+{{ include "landlord.repository" $platformConfig }}
+{{ include "landlord.kustomization" $platformConfig }}
+
+
+{{ range $envName, $envConfig := $tenantConfig.environments }}
+{{ if $envConfig.enabled }}
+{{ $nameBase := (printf "%s-%s" $tenantName $envName) }}
+{{ $_ := set $envConfig "tenantName" $tenantName }}
+{{ $_ := set $envConfig "namespace" $nameBase }}
+
+
+{{- /* Tenant Config */ -}}
+{{ include "landlord.tenant" $envConfig }}
+{{ include "landlord.repository" $envConfig }}
+{{ include "landlord.kustomization" $envConfig }}
+
+
+{{- /* Platform Config */ -}}
+{{ $platformConfig :=  $.Values.platform.gitops }}
+{{ $_ := set $platformConfig "tenantName" $nameBase }}
+{{ $_ := set $platformConfig "repositoryPath" (printf "/cluster/config/%s" $nameBase) }}
+{{ include "landlord.repository" $platformConfig }}
+{{ include "landlord.kustomization" $platformConfig }}
+
+
+{{ end }}
+{{ end }}
+
+
+{{ end }}
+{{ end }}

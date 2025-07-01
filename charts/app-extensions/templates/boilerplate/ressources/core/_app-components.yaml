@@ -1,0 +1,17 @@
+{{- define "app-extensions.app-components" }}
+{{- $baseValues := .baseValues }}
+{{- $values := .value }}
+{{- $componentName := $values.name }}
+
+{{- range $componentKind, $componentConfig := $values.components }}
+{{- $component := (mustMergeOverwrite (deepCopy (index $baseValues "resource" $componentKind)) (deepCopy $componentConfig)) }}
+{{- $_ := set $values.components $componentKind $component }}
+{{- end }}
+
+{{- range $componentKind, $componentConfig := $values.components }}
+
+{{- include "app-extensions.include.component" (dict "baseValues" $baseValues "resourceKey" $componentName "resourceConfig" $componentConfig "kindName" $componentKind "composition" $values) }}
+
+
+{{- end }}
+{{- end }}

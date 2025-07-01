@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "gandi-webhook.fullname" . }}
+  namespace: {{ .Values.certManager.namespace | quote }}
+  labels:
+    {{- include "gandi-webhook.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: https
+      protocol: TCP
+      name: https
+  selector:
+    {{- include "gandi-webhook.selectorLabels" . | nindent 4 }}

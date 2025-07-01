@@ -1,0 +1,16 @@
+{{ range $tenantName, $tenantConfig := .Values.tenants }}
+{{ if $tenantConfig.enabled }}
+{{ $_ := set $tenantConfig "tenantName" $tenantName }}
+
+{{ include "landlord.tenant" $tenantConfig }}
+
+{{ range $envName, $envConfig := $tenantConfig.environments }}
+{{ if $envConfig.enabled }}
+{{ $namespaceName := (printf "%s-%s" $tenantName $envName) }}
+
+{{ end }}
+{{ end }}
+
+
+{{ end }}
+{{ end }}

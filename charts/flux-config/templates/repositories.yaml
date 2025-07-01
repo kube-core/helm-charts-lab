@@ -1,0 +1,102 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: self
+spec:
+  gitImplementation: go-git
+  interval: 1m0s
+  ref:
+    branch: {{ .Values.gitops.ref }}
+  secretRef:
+    name: {{ index .Values.secrets "flux-ssh" "secretRef" "name" }}
+  timeout: 60s
+  url: {{ .Values.gitops.repository }}
+
+{{ if .Values.gitops.config.core.enabled }}
+
+{{ if .Values.gitops.config.full.imagePolicy }}
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: kube-core
+spec:
+  imageRepositoryRef:
+    name: kube-core
+  policy:
+    semver:
+      range: '>=0.0.0-0'
+{{ end }}
+{{ if .Values.gitops.config.full.imageRepository }}
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: kube-core
+spec:
+  image: k8skubecore/kube-core
+  interval: 1h
+  # secretRef:
+  #   name: docker-registry-admin
+{{ end }}
+
+{{ end }}
+
+
+{{ if (eq .Values.gitops.enabled true) }}
+
+{{ if (eq .Values.gitops.mode "full") }}
+{{ if .Values.gitops.config.full.kustomization.enabled }}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: self
+spec:
+  force: true
+  interval: 1m0s
+  path: {{ .Values.gitops.path }}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: self
+{{ end }}
+{{ if .Values.gitops.config.full.imageUpdateAutomation.enabled }}
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: self
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: self
+  git:
+    checkout:
+      ref:
+        branch: {{ .Values.gitops.ref }}
+    commit:
+      author:
+        email: {{ coalesce .Values.gitops.bot.user .Values.git.bot.user }}
+        name: {{ coalesce .Values.gitops.bot.name .Values.git.bot.name }}
+      messageTemplate: "gitops: Updates Images in: {{ .Values.cluster.config.repository.path }} (flux-self)"
+    push:
+      branch: {{ .Values.gitops.ref }}
+  update:
+    path: {{ .Values.cluster.config.repository.path }}
+    strategy: Setters
+{{ end }}
+{{ else if (eq .Values.gitops.mode "releases") }}
+{{ range $releaseName, $releaseConfig := .Values.releases }}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: {{ toYaml $releaseConfig.namespace }}-{{ $releaseName }}
+spec: {{ toYaml $.Values.gitops.config.default.kustomization | nindent 2 }}
+  path: {{ $.Values.gitops.path }}/{{ $releaseConfig.namespace }}/{{ $releaseName }}
+{{ end }}
+{{ end }}
+
+{{ end }}

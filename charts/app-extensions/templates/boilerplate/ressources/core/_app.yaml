@@ -1,0 +1,14 @@
+{{ define "app-extensions.app" }}
+{{- $values := .value }}
+{{- $common := .common }}
+{{- $name := (coalesce $values.name .key) }}
+{{- $resourceName := (coalesce $values.resourceName $values.name .key) }}
+{{- $namespace := (coalesce $values.namespace $common.release.namespace "default") }}
+
+{{- $_ := set .value "name" $name }}
+{{- $_ := set .value "namespace" $namespace }}
+
+{{- include "app-extensions.app-components" . }}
+{{- include "app-extensions.app-strategies" . }}
+
+{{- end }}

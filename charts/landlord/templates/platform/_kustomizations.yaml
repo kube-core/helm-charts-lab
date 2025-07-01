@@ -1,0 +1,60 @@
+{{ range $tenantName, $tenantConfig := .Values.tenants }}
+{{ if $tenantConfig.enabled }}
+{{ $tenantGitopsNamespace := $.Values.platform.gitops.namespace }}
+{{ $tenantPlatformRepository := $.Values.platform.gitops.repository }}
+{{ $tenantPlatformRepositoryGitRef := $.Values.platform.gitops.ref }}
+{{ $tenantPlatformRepositoryGitPath := $.Values.platform.gitops.path }}
+{{ $tenantPlatformRepositorySecretRef := $.Values.platform.gitops.secretRef }}
+
+{{ if $tenantConfig.gitops }}
+{{ $tenantGitopsNamespace = coalesce $tenantConfig.gitops.namespace $tenantGitopsNamespace }}
+{{ $tenantPlatformRepository = coalesce $tenantConfig.gitops.repository $tenantPlatformRepository }}
+{{ $tenantPlatformRepositoryGitRef = coalesce $tenantConfig.gitops.ref $tenantPlatformRepositoryGitRef }}
+{{ $tenantPlatformRepositoryGitPath = coalesce $tenantConfig.gitops.path $tenantPlatformRepositoryGitPath }}
+{{ $tenantPlatformRepositorySecretRef = coalesce $tenantConfig.gitops.secretRef $tenantPlatformRepositorySecretRef }}
+{{ end }}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  namespace: {{ $tenantGitopsNamespace }}
+  name: {{ $tenantName }}
+spec:
+  force: true
+  interval: 1m0s
+  path: {{ $tenantPlatformRepositoryGitPath }}/{{ $tenantName }}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: {{ $tenantName }}
+{{ range $envName, $envConfig := $tenantConfig.environments }}
+{{ if $envConfig.enabled }}
+{{ $nameBase := (printf "%s-%s" $tenantName $envName) }}
+{{ if $envConfig.gitops }}
+{{ $tenantGitopsNamespace = coalesce $envConfig.gitops.namespace $tenantGitopsNamespace }}
+{{ $tenantPlatformRepository = coalesce $envConfig.gitops.repository $tenantPlatformRepository }}
+{{ $tenantPlatformRepositoryGitRef = coalesce $envConfig.gitops.ref $tenantPlatformRepositoryGitRef }}
+{{ $tenantPlatformRepositoryGitPath = coalesce $envConfig.gitops.path $tenantPlatformRepositoryGitPath }}
+{{ $tenantPlatformRepositorySecretRef = coalesce $envConfig.gitops.secretRef $tenantPlatformRepositorySecretRef }}
+{{ end }}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: {{ $nameBase }}
+  namespace: {{ $tenantGitopsNamespace }}
+spec:
+  force: true
+  interval: 1m0s
+  path: {{ $tenantPlatformRepositoryGitPath }}/{{ $nameBase }}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: {{ $nameBase }}
+
+{{ end }}
+{{ end }}
+
+
+{{ end }}
+{{ end }}
