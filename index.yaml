@@ -1,0 +1,379 @@
+apiVersion: v1
+entries:
+  app-extensions:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:14.813505104Z"
+    description: A Helm chart for Kubernetes
+    digest: 318b952128950296ac03bc35ad69744e1a90b9395a0b1e000e53b12f7982484e
+    name: app-extensions
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/app-extensions-0.2.3/app-extensions-0.2.3.tgz
+    version: 0.2.3
+  cluster-logging:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:14.994242543Z"
+    description: A Helm chart for Kubernetes
+    digest: ad1553b5f71f2a94dead3785bc134efc1c3e830ca7249791d63d2ba6ae8233d9
+    name: cluster-logging
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/cluster-logging-0.1.2/cluster-logging-0.1.2.tgz
+    version: 0.1.2
+  cluster-policies:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:15.14297385Z"
+    description: A Helm chart for Kubernetes
+    digest: c70f5b80b56b0e1c9515fdaa600422b061bb6fe86d5158e207320f394966d5f6
+    name: cluster-policies
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/cluster-policies-0.1.1/cluster-policies-0.1.1.tgz
+    version: 0.1.1
+  cluster-rbac:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:15.322198562Z"
+    description: A Helm chart for Kubernetes
+    digest: f51ddc3de492b0df0e2c1331d2c3ab25080ca46054d0f79f6000914c14fe34d9
+    name: cluster-rbac
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/cluster-rbac-0.1.1/cluster-rbac-0.1.1.tgz
+    version: 0.1.1
+  env-config:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:15.481315818Z"
+    description: A Helm chart for Kubernetes
+    digest: 9f03115f866014b79b23918b0418006feb0ab636ff8798b643e1f93c072bcc7d
+    name: env-config
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/env-config-0.1.4/env-config-0.1.4.tgz
+    version: 0.1.4
+  flux:
+  - apiVersion: v2
+    appVersion: 0.31.3
+    created: "2025-07-01T11:01:15.670389821Z"
+    description: A Helm chart for Kubernetes
+    digest: f79ff465e3cc600fff0a6f49185bed506263221b444f6be0f8e433d18a08f384
+    name: flux
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/flux-0.1.1/flux-0.1.1.tgz
+    version: 0.1.1
+  flux-config:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:15.838596342Z"
+    description: A Helm chart for Kubernetes
+    digest: 23ca7656093e67d43080ab79d2542ca09ac4f2209ed22a0f9340b355186657ae
+    name: flux-config
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/flux-config-0.2.1/flux-config-0.2.1.tgz
+    version: 0.2.1
+  flux-repository:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:16.048934063Z"
+    description: A Helm chart for Kubernetes
+    digest: 20ec0f4ad2be9546ff7caaacfebc545a74f333260ff863bb89f0dd8b326fa52d
+    name: flux-repository
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/flux-repository-0.2.1/flux-repository-0.2.1.tgz
+    version: 0.2.1
+  gandi-webhook:
+  - apiVersion: v2
+    appVersion: 0.4.0
+    created: "2025-07-01T11:01:16.223470074Z"
+    description: A Helm chart for gandi-webhook
+    digest: 0d3bedd754c5be07e376969c7689c9cf84c4147443153b7bece93bbd3bab54d2
+    name: gandi-webhook
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/gandi-webhook-0.1.0/gandi-webhook-0.1.0.tgz
+    version: 0.1.0
+  hairpin-proxy:
+  - apiVersion: v2
+    appVersion: 0.4.0
+    created: "2025-07-01T11:01:16.37298056Z"
+    description: A Helm chart for Kubernetes
+    digest: b73429b2e2854096dbf6b2d93669140a3c72989573caf534583c2067e5d3ae69
+    name: hairpin-proxy
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/hairpin-proxy-0.1.0/hairpin-proxy-0.1.0.tgz
+    version: 0.1.0
+  imagecache:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:16.546864606Z"
+    description: A Helm chart for Kubernetes
+    digest: 35c19aab3d9a434f604afe745baca8bde94198545616f3ea2310adc0bbcc8f3c
+    name: imagecache
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/imagecache-0.1.1/imagecache-0.1.1.tgz
+    version: 0.1.1
+  istio-base:
+  - apiVersion: v2
+    appVersion: 1.17.2
+    created: "2025-07-01T11:01:16.740187688Z"
+    description: Helm chart for deploying Istio cluster resources and CRDs
+    digest: 6516451d6bf28894e30665f70d719adb5b471f15b5f13e707ab9d30d2bb9f56e
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    name: istio-base
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-base-0.1.1/istio-base-0.1.1.tgz
+    version: 0.1.1
+  istio-discovery:
+  - apiVersion: v2
+    appVersion: 1.17.2
+    created: "2025-07-01T11:01:16.904105255Z"
+    description: Helm chart for istio control plane
+    digest: 3c588d5493e7dad4b51143e1f7c44047f4b18e62d754af94034dd5ba24d1f7fa
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    - istiod
+    - istio-discovery
+    name: istio-discovery
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-discovery-0.1.1/istio-discovery-0.1.1.tgz
+    version: 0.1.1
+  istio-elasticsearch:
+  - apiVersion: v2
+    appVersion: 8.3.3
+    created: "2025-07-01T11:01:17.091915981Z"
+    description: A Helm chart for Kubernetes
+    digest: 831ee7b0a1c2cdbc63c3ac0107669efddcce050b67c811b808126496e7e78607
+    name: istio-elasticsearch
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-elasticsearch-0.1.1/istio-elasticsearch-0.1.1.tgz
+    version: 0.1.1
+  istio-grafana:
+  - apiVersion: v2
+    appVersion: 9.0.1
+    created: "2025-07-01T11:01:17.273236078Z"
+    description: Helm chart for deploying Istio Grafana
+    digest: 57702cea769731c819f63ea337a2f86d4a0099bcbcce8e2cca04be4811fa46e1
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    name: istio-grafana
+    sources:
+    - https://raw.githubusercontent.com/istio/istio/release-1.10/samples/addons/grafana.yaml
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-grafana-0.1.1/istio-grafana-0.1.1.tgz
+    version: 0.1.1
+  istio-ingress-config:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:17.446084919Z"
+    description: Helm chart for deploying Istio Kiali
+    digest: faa23d17d8635532062c5898e0fa543537e76b31a42773aa43b518ab21d2f9ff
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    name: istio-ingress-config
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-ingress-config-0.1.1/istio-ingress-config-0.1.1.tgz
+    version: 0.1.1
+  istio-jaeger:
+  - apiVersion: v2
+    appVersion: "1.35"
+    created: "2025-07-01T11:01:17.601227883Z"
+    description: A Helm chart for Kubernetes
+    digest: 797eb9e42d8b8c313cfe5ee8fa93a1ed7c275260998ed0f85fab388421aea01e
+    name: istio-jaeger
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-jaeger-0.1.1/istio-jaeger-0.1.1.tgz
+    version: 0.1.1
+  istio-kiali:
+  - apiVersion: v2
+    appVersion: "1.17"
+    created: "2025-07-01T11:01:17.773532501Z"
+    description: Helm chart for deploying Istio Kiali
+    digest: cfc13ad2f75cf4a1aeb0b2004e9624ed10cd7969bd495d02fcd71ef3c91963e2
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    name: istio-kiali
+    sources:
+    - http://github.com/istio/istio
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-kiali-0.1.1/istio-kiali-0.1.1.tgz
+    version: 0.1.1
+  istio-prometheus:
+  - apiVersion: v2
+    appVersion: "1.17"
+    created: "2025-07-01T11:01:17.942738783Z"
+    description: Helm chart for deploying Istio Prometheus
+    digest: 30daa86807556ce3ff78e99dd8044821604b9b579d7c47f327c7ef2a1384f74d
+    icon: https://istio.io/latest/favicons/android-192x192.png
+    keywords:
+    - istio
+    name: istio-prometheus
+    sources:
+    - https://raw.githubusercontent.com/istio/istio/release-1.10/samples/addons/prometheus.yaml
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/istio-prometheus-0.1.1/istio-prometheus-0.1.1.tgz
+    version: 0.1.1
+  jaeger-managed:
+  - apiVersion: v2
+    appVersion: "1.35"
+    created: "2025-07-01T11:01:18.107079712Z"
+    description: A Helm chart for Kubernetes
+    digest: 1119decbfa1d8e8c36fb43990179edbc41fb39a12f4d8c60e2a9cb676c581c43
+    name: jaeger-managed
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/jaeger-managed-0.1.1/jaeger-managed-0.1.1.tgz
+    version: 0.1.1
+  kiali-managed:
+  - apiVersion: v2
+    appVersion: "1.17"
+    created: "2025-07-01T11:01:18.363453523Z"
+    description: A Helm chart for Kubernetes
+    digest: 0a3c66727993f098ce7468fd960256d8e94acb5daa988c44e429c43625c60d97
+    name: kiali-managed
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/kiali-managed-0.1.1/kiali-managed-0.1.1.tgz
+    version: 0.1.1
+  landlord:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-07-01T11:01:18.508885782Z"
+    description: A Helm chart for Kubernetes
+    digest: 890ac45dbb10ac7cf38edc80236251dbe07aa28560c6fb98e707131d031f9dcd
+    name: landlord
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/landlord-0.1.1/landlord-0.1.1.tgz
+    version: 0.1.1
+  linkerd:
+  - apiVersion: v2
+    appVersion: 2.12.3
+    created: "2025-07-01T11:01:18.709526147Z"
+    description: A Helm chart for Kubernetes
+    digest: 1a5edd4dfe2f2cb800c2bb28a128dd892b7b9e8ccaf548d100e0bc3f8beff13d
+    name: linkerd
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/linkerd-0.1.1/linkerd-0.1.1.tgz
+    version: 0.1.1
+  logging-stack:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-07-01T11:01:19.000762573Z"
+    dependencies:
+    - alias: es-exporter
+      condition: es-exporter.enabled
+      name: prometheus-elasticsearch-exporter
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 4.12.0
+    description: A Helm chart for Kubernetes
+    digest: 90df41ac71b33b70294ac6c373790c0197f5795e0969765290da7a7daa4d560d
+    name: logging-stack
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/logging-stack-0.1.1/logging-stack-0.1.1.tgz
+    version: 0.1.1
+  namespace:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:19.180954423Z"
+    description: A Helm chart for Kubernetes
+    digest: 1419ca474bedec6ad642abbf1935d19fc017ff817d65b8c3306390aee32e8c6e
+    name: namespace
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/namespace-0.1.1/namespace-0.1.1.tgz
+    version: 0.1.1
+  node-initializer:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:19.363105218Z"
+    description: A Helm chart for Kubernetes
+    digest: 29f0570b99e1edf2db787ff71e9a8a355d6842707e532449e8b15c9282818d2a
+    name: node-initializer
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/node-initializer-0.1.1/node-initializer-0.1.1.tgz
+    version: 0.1.1
+  priority-class:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:19.53917968Z"
+    description: A Helm chart for Kubernetes
+    digest: abdef79bb97b050465b1b2f785d4e0043ebe9344405285d759abeb1e059d9660
+    name: priority-class
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/priority-class-0.1.1/priority-class-0.1.1.tgz
+    version: 0.1.1
+  raw:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:19.707605806Z"
+    description: A helm chart for deploying raw manifests
+    digest: 6a5653c672ef278a1b37bb07e5c4f0cc5e1b99dd01ba66e412fd6210158250e9
+    name: raw
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/raw-0.1.1/raw-0.1.1.tgz
+    version: 0.1.1
+  scaleway-webhook:
+  - apiVersion: v1
+    appVersion: v0.0.1
+    created: "2025-07-01T11:01:19.898624298Z"
+    description: Cert-Manager webhook for Scaleway
+    digest: 05e2ccc8f9bf1a9f471eb7fcc5c411a53385b9f5789e5d67cd78eb5b00dbd54f
+    name: scaleway-webhook
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/scaleway-webhook-0.1.0/scaleway-webhook-0.1.0.tgz
+    version: 0.1.0
+  slack-operator:
+  - apiVersion: v2
+    appVersion: 0.0.8
+    created: "2025-07-01T11:01:20.047961489Z"
+    description: A Helm chart for Kubernetes
+    digest: c81fef6aef4f043c35b98e12d846519f5740723dd1d628eceb2a0e81c2e6fa56
+    name: slack-operator
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/slack-operator-0.1.1/slack-operator-0.1.1.tgz
+    version: 0.1.1
+  smocker:
+  - apiVersion: v2
+    appVersion: 0.19.0
+    created: "2025-07-01T11:01:20.210479414Z"
+    description: Helm chart for smocker mock service deployment
+    digest: 320587f1a8a0011da60f23d1bdc38a552b82953a2d88903b5dc7e75d8b6637ed
+    name: smocker
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/smocker-0.1.0/smocker-0.1.0.tgz
+    version: 0.1.0
+  system-jobs:
+  - apiVersion: v2
+    created: "2025-07-01T11:01:20.355496622Z"
+    description: A Helm chart for Kubernetes
+    digest: cf7973541875c991d33675fa746c9a53a6b2a0c1d6de3c9ec151554a722f9649
+    name: system-jobs
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/system-jobs-0.1.1/system-jobs-0.1.1.tgz
+    version: 0.1.1
+  test-logging:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-07-01T11:01:20.518544531Z"
+    description: A Helm chart for Kubernetes
+    digest: 2ac3776762d7c900184212ed5c5124556043d79c0e2dbe00d1db298c3e214100
+    name: test-logging
+    type: application
+    urls:
+    - https://github.com/kube-core/helm-charts-lab/releases/download/test-logging-0.1.1/test-logging-0.1.1.tgz
+    version: 0.1.1
+generated: "2025-07-01T11:01:20.518556022Z"
